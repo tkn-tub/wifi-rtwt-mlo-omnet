@@ -9,6 +9,7 @@
 
 package rtwt_mlo.lmac.mac.channelaccess;
 
+import inet.common.Module;
 import inet.linklayer.ieee80211.mac.channelaccess.Edcaf;
 
 import inet.queueing.contract.IPacketQueue;
@@ -19,10 +20,11 @@ import inet.linklayer.ieee80211.mac.queue.InProgressFrames;
 
 import rtwt_mlo.lmac.mac.originator.QosTwtAckHandler;   
 
-module LEdcafRtwt 
+module LEdcafRtwt extends Module
 {
     parameters:
         @class(inet::ieee80211::LEdcafRtwt);
+        displayStringTextFormat = default("{accessCategory}\n{contentionState}");
         contention.typename = "LContention";
         
         string rxModule;

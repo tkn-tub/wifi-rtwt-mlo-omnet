@@ -62,6 +62,7 @@ void LHcfRtwt::initialize(int stage)
             originatorBlockAckProcedure = new OriginatorBlockAckProcedure();
             recipientBlockAckProcedure = new RecipientBlockAckProcedure();
         }
+        WATCH_EXPR("frameSequenceInfo", getFrameSequenceInfo());
         //added by zakrzewski
         twtAgent = check_and_cast<inet::ieee80211::TwtAgent *>(getContainingNicModule(this)->getSubmodule("twtAgent"));
         umac = check_and_cast<inet::RtwtUMac *>(getContainingNicModule(this)->getParentModule()->getSubmodule("umac"));
@@ -162,7 +163,6 @@ void LHcfRtwt::processLowerFrame(Packet *packet, const Ptr<const Ieee80211MacHea
         if ((!isForUs(header) && !startRxTimer->isScheduled()) || isForUs(header)) {
             // IMPORTANT: Control frames, e.g., ACKs, are processed here.
             frameSequenceHandler->processResponse(packet);
-            updateDisplayString();
         }
         else {
             EV_INFO << "This frame is not for us" << std::endl;
@@ -231,7 +231,6 @@ void LHcfRtwt::transmissionComplete(Packet *packet, const Ptr<const Ieee80211Mac
     auto edcaf = edca->getChannelOwner();
     if (edcaf) {
         frameSequenceHandler->transmissionComplete();
-        updateDisplayString();
     }
     else if (hcca->isOwning())
         throw cRuntimeError("Hcca is unimplemented!");
@@ -299,7 +298,6 @@ void LHcfRtwt::startFrameSequence(AccessCategory ac)
 {
     frameSequenceHandler->startFrameSequence(new HcfFs(), buildContext(ac), this);
     emit(IFrameSequenceHandler::frameSequenceStartedSignal, frameSequenceHandler->getContext());
-    updateDisplayString();
 }
 
 void LHcfRtwt::handleInternalCollision(std::vector<LEdcafRtwt *> internallyCollidedEdcafs)
@@ -590,7 +588,7 @@ void LHcfRtwt::originatorProcessReceivedControlFrame(Packet *packet, const Ptr<c
 }
 bool LHcfRtwt::hasFrameToTransmit(AccessCategory ac)
 {
-    auto edcaf = edca->getChannelOwner();
+    auto edcaf = edca->getEdcaf(ac);
     if (edcaf)
         return !edcaf->getPendingQueue()->isEmpty() || edcaf->getInProgressFrames()->hasInProgressFrames();
     else

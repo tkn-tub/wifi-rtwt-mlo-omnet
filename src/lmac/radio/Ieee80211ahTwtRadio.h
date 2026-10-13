@@ -10,8 +10,6 @@
 
 #include <omnetpp.h>
 #include "inet/physicallayer/wireless/ieee80211/packetlevel/Ieee80211Radio.h"
-#include "inet/physicallayer/wireless/ieee80211/packetlevel/Ieee80211ScalarTransmitter.h"
-#include "inet/physicallayer/wireless/ieee80211/packetlevel/Ieee80211ScalarReceiver.h"
 #include "inet/common/packet/Packet.h"
 using namespace omnetpp;
 

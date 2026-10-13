@@ -27,13 +27,15 @@ import inet.linklayer.ieee80211.mac.protectionmechanism.SingleProtectionMechanis
 import inet.linklayer.ieee80211.mac.rateselection.QosRateSelection;
 import inet.linklayer.ieee80211.mac.recipient.RecipientQosMacDataService;
 
+import inet.common.Module;
 import rtwt_mlo.lmac.mac.channelaccess.LEdcaRtwt;
 import rtwt_mlo.lmac.mac.originator.OriginatorQosTwtAckPolicy;
 
-module LHcfRtwt like IHcf
+module LHcfRtwt extends Module like IHcf
 {
     parameters:
         @class(inet::ieee80211::LHcfRtwt);
+        displayStringTextFormat = default("{frameSequenceInfo}");
         bool isBlockAckSupported = default(false);
         bool isAckRequired = default(true);
 	

@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from src/msg/beaconTimers.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.4 from src/rtwt/msg/beaconTimers.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -28,7 +28,7 @@
 #include <sstream>
 #include <memory>
 #include <type_traits>
-#include "../../rtwt/msg/beaconTimers_m.h"
+#include "beaconTimers_m.h"
 
 namespace omnetpp {
 
@@ -150,6 +150,27 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
+
+template<typename T>
+std::string toStringIfPrintable(const T& t) {
+    if constexpr (omnetpp::internal::is_printable<T>::value) {
+        std::ostringstream os;
+        os << t;
+        return os.str();
+    }
+    return omnetpp::cClassDescriptor::UNPRINTABLE;
+}
+
+template<typename T>
+bool fromStringIfExtractable(T& t, const char *s) {
+    if constexpr (omnetpp::internal::is_extractable<T>::value) {
+        std::istringstream is(s);
+        is >> t;
+        return true;
+    }
+    return false;
+}
+
 namespace inet {
 namespace ieee80211 {
 
@@ -233,6 +254,8 @@ class beaconTimersDescriptor : public omnetpp::cClassDescriptor
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
     virtual const char *getProperty(const char *propertyName) const override;
+    virtual std::string getValueAsString(omnetpp::any_ptr object) const override;
+    virtual void setValueAsString(omnetpp::any_ptr object, const char *value) const override;
     virtual int getFieldCount() const override;
     virtual const char *getFieldName(int field) const override;
     virtual int findField(const char *fieldName) const override;
@@ -286,6 +309,19 @@ const char *beaconTimersDescriptor::getProperty(const char *propertyName) const
 {
     omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
+}
+
+std::string beaconTimersDescriptor::getValueAsString(omnetpp::any_ptr object) const
+{
+    beaconTimers *pp = omnetpp::fromAnyPtr<beaconTimers>(object); (void)pp;
+    return ((cObject*)pp)->str();
+}
+
+void beaconTimersDescriptor::setValueAsString(omnetpp::any_ptr object, const char *value) const
+{
+    beaconTimers *pp = omnetpp::fromAnyPtr<beaconTimers>(object); (void)pp;
+    if (!fromStringIfExtractable(*pp, value))
+        cClassDescriptor::setValueAsString(object, value);
 }
 
 int beaconTimersDescriptor::getFieldCount() const

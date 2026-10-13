@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from src/msg/twtScheduleBeacon.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.4 from src/rtwt/msg/twtScheduleBeacon.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -28,7 +28,7 @@
 #include <sstream>
 #include <memory>
 #include <type_traits>
-#include "../../rtwt/msg/twtScheduleBeacon_m.h"
+#include "twtScheduleBeacon_m.h"
 
 namespace omnetpp {
 
@@ -149,6 +149,27 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 }
 
 }  // namespace omnetpp
+
+
+template<typename T>
+std::string toStringIfPrintable(const T& t) {
+    if constexpr (omnetpp::internal::is_printable<T>::value) {
+        std::ostringstream os;
+        os << t;
+        return os.str();
+    }
+    return omnetpp::cClassDescriptor::UNPRINTABLE;
+}
+
+template<typename T>
+bool fromStringIfExtractable(T& t, const char *s) {
+    if constexpr (omnetpp::internal::is_extractable<T>::value) {
+        std::istringstream is(s);
+        is >> t;
+        return true;
+    }
+    return false;
+}
 
 namespace inet {
 namespace ieee80211 {
@@ -282,6 +303,8 @@ class twtScheduleEntryDescriptor : public omnetpp::cClassDescriptor
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
     virtual const char *getProperty(const char *propertyName) const override;
+    virtual std::string getValueAsString(omnetpp::any_ptr object) const override;
+    virtual void setValueAsString(omnetpp::any_ptr object, const char *value) const override;
     virtual int getFieldCount() const override;
     virtual const char *getFieldName(int field) const override;
     virtual int findField(const char *fieldName) const override;
@@ -335,6 +358,19 @@ const char *twtScheduleEntryDescriptor::getProperty(const char *propertyName) co
 {
     omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
+}
+
+std::string twtScheduleEntryDescriptor::getValueAsString(omnetpp::any_ptr object) const
+{
+    twtScheduleEntry *pp = omnetpp::fromAnyPtr<twtScheduleEntry>(object); (void)pp;
+    return toStringIfPrintable(*pp);
+}
+
+void twtScheduleEntryDescriptor::setValueAsString(omnetpp::any_ptr object, const char *value) const
+{
+    twtScheduleEntry *pp = omnetpp::fromAnyPtr<twtScheduleEntry>(object); (void)pp;
+    if (!fromStringIfExtractable(*pp, value))
+        cClassDescriptor::setValueAsString(object, value);
 }
 
 int twtScheduleEntryDescriptor::getFieldCount() const
@@ -745,6 +781,8 @@ class twtScheduleBeaconDescriptor : public omnetpp::cClassDescriptor
     virtual bool doesSupport(omnetpp::cObject *obj) const override;
     virtual const char **getPropertyNames() const override;
     virtual const char *getProperty(const char *propertyName) const override;
+    virtual std::string getValueAsString(omnetpp::any_ptr object) const override;
+    virtual void setValueAsString(omnetpp::any_ptr object, const char *value) const override;
     virtual int getFieldCount() const override;
     virtual const char *getFieldName(int field) const override;
     virtual int findField(const char *fieldName) const override;
@@ -798,6 +836,19 @@ const char *twtScheduleBeaconDescriptor::getProperty(const char *propertyName) c
 {
     omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
     return base ? base->getProperty(propertyName) : nullptr;
+}
+
+std::string twtScheduleBeaconDescriptor::getValueAsString(omnetpp::any_ptr object) const
+{
+    twtScheduleBeacon *pp = omnetpp::fromAnyPtr<twtScheduleBeacon>(object); (void)pp;
+    return ((cObject*)pp)->str();
+}
+
+void twtScheduleBeaconDescriptor::setValueAsString(omnetpp::any_ptr object, const char *value) const
+{
+    twtScheduleBeacon *pp = omnetpp::fromAnyPtr<twtScheduleBeacon>(object); (void)pp;
+    if (!fromStringIfExtractable(*pp, value))
+        cClassDescriptor::setValueAsString(object, value);
 }
 
 int twtScheduleBeaconDescriptor::getFieldCount() const

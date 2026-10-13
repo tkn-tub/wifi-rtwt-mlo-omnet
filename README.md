@@ -8,8 +8,8 @@ An OMNeT++ simulation framework implementing **Restricted Target Wake Time (R-TW
 
 | Dependency | Version |
 |---|---|
-| [OMNeT++](https://omnetpp.org/) | **6.0.3** |
-| [INET Framework](https://inet.omnetpp.org/) | **4.5** |
+| [OMNeT++](https://omnetpp.org/) | **6.4.0** |
+| [INET Framework](https://inet.omnetpp.org/) | **4.7.0** |
 | [wifi-mlo-omnet](https://github.com/tkn-tub/wifi-mlo-omnet) | (see below) |
 
 ### MLO Base Framework
@@ -24,7 +24,7 @@ The `RtwtStation`, `RtwtAccessPoint`, `RtwtUMac`, and `RtwtUMacAccessPoint` modu
 
 This project is built using the **OMNeT++ IDE** (Eclipse-based):
 
-1. Place this project folder, `inet4.5/`, and `wifi-mlo-omnet/` side by side in your OMNeT++ workspace.
+1. Place this project folder, `inet-4.7.0/`, and `wifi-mlo-omnet/` side by side in your OMNeT++ workspace.
 2. Import all three projects into the workspace.
 3. Set project Makemake properties for this project:
    - Root: **build** mode (makemake), source location
@@ -111,10 +111,6 @@ Custom OMNeT++ message definitions and their serializers:
 | `twtEnable` | lmac mac | Enable R-TWT at the MAC level |
 
 ---
-
-## Evalution
-
-Under the `result-processing` folder, you can find two Jupiter notebooks to (1) process the OMNeT++ results files (.sca and .vec) and (2) create plots for the selected metrics. You can run them in the given order. (2) also has some validation experiments, which illustrates the packet transmission timeline for the consequent SPs. 
 
 ## Citation
 
