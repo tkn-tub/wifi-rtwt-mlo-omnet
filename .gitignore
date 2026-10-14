@@ -6,20 +6,12 @@
 /src/*.exe
 /analysis
 /.settings
+/.claude
 
 *.qtenvrc
 *.sca
 *.exe
-*.dll
-*.a
-*.def
-*.so
-*.vci
-*.vec
-*.txt
-*.o
-*.d
-*.csv
 CLAUDE.md
-TODO.md
+*.so
 
+/result-processing/*

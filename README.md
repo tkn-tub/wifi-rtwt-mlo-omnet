@@ -112,6 +112,10 @@ Custom OMNeT++ message definitions and their serializers:
 
 ---
 
+## Evalution
+
+Under the `result-processing` folder, you can find two Jupiter notebooks to (1) process the OMNeT++ results files (.sca and .vec) and (2) create plots for the selected metrics. You can run them in the given order. (2) also has some validation experiments, which illustrates the packet transmission timeline for the consequent SPs. 
+
 ## Citation
 
 If you use this framework in your research, please cite our paper:
